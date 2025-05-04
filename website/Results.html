@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+    <link rel="stylesheet" href="styles.css">
+    <title>Results & Conclusion</title></head>
+   <body>
+    <header>
+        <a href="/Users/abluna/Desktop/Computational Perception/Project/website/index.html">Home</a>
+        <a href="/Users/abluna/Desktop/Computational Perception/Project/website/About.html"> | About</a>
+        <a href="/Users/abluna/Desktop/Computational Perception/Project/website/Introduction.html"> | Introduction</a>
+        <a href="/Users/abluna/Desktop/Computational Perception/Project/website/Research Platform.html"> | Research Platform</a>
+        <a href="/Users/abluna/Desktop/Computational Perception/Project/website/Methodology.html"> | Methodology</a>
+        <a href="/Users/abluna/Desktop/Computational Perception/Project/website/Results.html"> | Results</a>
+    </header>
+
+    <h1>Results & Conclusion</h1>
+        <div id="results">
+            <h2>Results</h2>
+            <figure>
+                <img src="/Users/abluna/Desktop/Computational Perception/Project/website/eclipse_with_limb_overlay.png" width="50%" height="auto">
+                <figcaption>Limb overlay (from observer's location) on eclipse image</figcaption>
+            </figure>
+            <p>
+                The initial analysis of the image data, combined with metadata, revealed the pres- ence of craters on the Moon. However, since it is a global
+                image, identifying specific craters along the lunar limb responsible for Baily’s Beads remains chal- lenging using only global lunar elevation map.
+                While image dilation may aid in highlighting larger features, it is still likely to miss narrow or subtle craters that contribute to the phenomenon.
+                The gray scale image might benefit from contrast enhancement like histogram equalization or adaptive contrast enhancement. The raw elevation data 
+                might also contain artifacts or noise from the original DEM dataset which can be dealt with common image processing techniques like Gaussian 
+                filtering or median filtering could be applied to reduce noise. For the project we can apply edge detection for feature extraction. Due to the size 
+                of the image, further processing is not carried out in MATLAB, instead we used OpenCV.
+            </p>
+            <br>
+            <p>
+                In the process of building a novel eclipsed-based earth localization method, we were able to accurately detect Baily’s bead using light intensity around
+                the lunar limb. This can further be verified by passing multiple photographs through the process. The unique brightness profile of Baily’s beads,
+                typically characterized by sharp, localized peaks significantly exceeding the surrounding limb and coronal brightness,served as a key feature for 
+                detection. By extracting and ranking the brightest points around the lunar circumference, we were able to isolate candidate beads with high confidence. 
+                This detection not only validates the physical mechanism behind the bead phenomenon but also provides a measurable anchor for further geolocation 
+                analysis. The reliability of this method can be further strength- ened by applying it to a broader set of eclipse photographs.
+            </p>
+            <br>
+            <p>
+                As we opted for Earth-based Moon position method we extracted the lunar limb points in correspondence to observers location and then overlay the lunar limb 
+                points (from observers location) accurately on to the eclipse image. In Fig. 13, the SLDEM-derived limb points are accurately mapped along the edge of the 
+                eclipsed Moon, revealing fine details in the lunar topography. The granular undulations visible in the overlay correspond to real crater induced variations 
+                along the lunar horizon. This alignment confirms that the irregularities in brightness seen in the image are not artifacts, but actual features of the Moon’s 
+                limb. Further we obtained improved <a href="https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2020JE006728" target="_blank"> Global Catalog of Lunar Craters
+                (≥ 1 km) with 3D Morphological Information</a> in order to recognize the craters on the limb.
+            </p>
+        </div>
+
+        <div id="conclusion">
+            <h2>Conclusion</h2>
+            <p>
+                
+            </p>
+        </div>
+    </body>
+</html>

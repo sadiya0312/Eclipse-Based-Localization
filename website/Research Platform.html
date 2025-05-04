@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <title>Our Research Platform</title>
+    </head>
+    <body>
+            <header>
+                <a href="/Users/abluna/Desktop/Computational Perception/Project/website/index.html">Home</a>
+                <a href="/Users/abluna/Desktop/Computational Perception/Project/website/About.html"> | About</a>
+                <a href="/Users/abluna/Desktop/Computational Perception/Project/website/Introduction.html"> | Introduction</a>
+                <a href="/Users/abluna/Desktop/Computational Perception/Project/website/Research Platform.html"> | Research Platform</a>
+                <a href="/Users/abluna/Desktop/Computational Perception/Project/website/Methodology.html"> | Methodology</a>
+                <a href="/Users/abluna/Desktop/Computational Perception/Project/website/Results.html"> | Results</a>
+            </header>
+        
+            <h1>Our Research Platform</h1>
+            <h2>Type of Data Collected</h2>
+            <p>
+            The data collected for this project are the *.JPG images for Bailey’s Bead and SLDEM (high resolution digital elevation model) 
+            for Lunar topographical data. The collected SLDEM are the global images of the Moon. SLDEM is a merged DEM (Digital Elevation) Model 
+            from LRO’s (Lunar Reconnaissance Orbiter) LOLA (Lunar Orbiter Laser Altimeter) instrument and JAXA’s (Japan Aerospace Explo- ration Agency) 
+            Kaguya Terrain. JAXA’s Kaguya Terrain is a high-resolution instrument onboard the Kaguya ( i.e SELENE ( SELenological and ENgineering Explorer)) 
+            lunar orbiter. SLDEM images collected are from 2015. They are finely sampled surface profile, including the valleys and ridges along the Moon’s edge. 
+            For this project this level of detail is important when pinpointing the small dips that let sunlight pass through during eclipses. SLDEM comprise of 
+            *.img and *.lbl files. SLDEM *.img global image obtained is of 2.63 GB while *.lbl file is 4. 47 KB.
+            </p>
+
+
+            <figure>
+                <img src="/Users/abluna/Desktop/Computational Perception/Project/website/lola.png" width="50%" height="auto">
+                <figcaption>Lunar Orbiter Laser Altimeter (science.nasa.gov)</figcaption>
+            </figure>
+            <figure>
+                <img src="/Users/abluna/Desktop/Computational Perception/Project/website/jaxa.png" width="50%" height="auto">
+                <figcaption>JAXA Kaguya Terrain Camera (global.jaxa.jp)</figcaption>
+            </figure>
+            
+            <p>
+            Along with the eclipse images and lunar topographical data, we also relied on sky- field data (Moon lunar limb from earth latitude/longitude). For 
+            final recognition of craters on the lunar limb we utilized the <a href="https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2020JE006728" target="_blank">global 
+            catalog of lunar craters with 3D morphological information</a>. Finally, there are latitude/longitude and pixels numpy data produced during the processing of images
+             which is later used in our analysis.
+            </p>
+            <br>
+            <br>
+            <h2>Platform Used</h3>
+            <p>
+            We used both MATLAB and Python OpenCV for this project. MATLAB allows technical computing including images, audio and video. OpenCV is essential for 
+            this project due to its capacity to handle large amount of data. It is implemented using python an does not require desktop IDE. Another requirement 
+            for the project is GPU (Graphical Processing Unit). This requirement is fulfilled by Iowa State University NOVA platform which comprises of 20 GPU nodes
+            with a total of 60 Nvidia A100 GPUs (80GB GPU RAM) and 5 Nvidia V100–32GB GPUs. We used Nidia V100-32GB GPU for this project.
+            For our purpose we used MATLAB for initial image visualization to extract different feature. Baily’s bead image is enhanced for better capture of the light
+            <br>
+            <br>
+            We processed Lunar elevation binary image combined with provided matadata as 32-bit floating-point numbers and then converting digital number to height. 
+            This data is again displayed as an image. We used skyfield package to obtain the position of Moon as seen from different locations on Earth. It can also 
+            simulate when and where eclipse will occur on Earth. Python libraries essential for this project include: matplotlib, numpy, pillow, scipy, opencv-python, pandas, 
+            and skyfield. 
+            </p>
+    </body>
+</html>

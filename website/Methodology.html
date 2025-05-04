@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+        <link rel="stylesheet" href="styles.css">
+        <title>Methodology</title>
+    </head>
+   <body>
+    <header>
+        <a href="/Users/abluna/Desktop/Computational Perception/Project/website/index.html">Home</a>
+        <a href="/Users/abluna/Desktop/Computational Perception/Project/website/About.html"> | About</a>
+        <a href="/Users/abluna/Desktop/Computational Perception/Project/website/Introduction.html"> | Introduction</a>
+        <a href="/Users/abluna/Desktop/Computational Perception/Project/website/Research Platform.html"> | Research Platform</a>
+        <a href="/Users/abluna/Desktop/Computational Perception/Project/website/Methodology.html"> | Methodology</a>
+        <a href="/Users/abluna/Desktop/Computational Perception/Project/website/Results.html"> | Results</a>
+    </header>
+    
+   <h1>Our Methodology</h1>
+   <figure>
+    <img src="/Users/abluna/Desktop/Computational Perception/Project/website/researchpipeline.png" width="45%" height="45%">
+    <figcaption>Visualization of our research pipeline</figcaption>
+    <br>
+    <img src="/Users/abluna/Desktop/Computational Perception/Project/website/phases.png" width="75%" height="45%">
+    <figcaption>Visualization of our research phases</figcaption>
+    </figure>
+   <ul>
+        <li><b>Phase 1:</b> In Phase 1 we collect data for Bailey’s beads as well as lunar to- pography. Bailey’s beads data will be collected from NASA’s 
+            Flickr account where photographs from 8 April 2024 are posted while the lunar topographic data are obtained from <a href="https://pds-geosciences.wustl.edu/"> the Washington University 
+            repository for geosciences</a>. Image processing and extraction of different features from this data is a major step before we move on to Phase 2.
+        </li>
+        <li>
+            <b>Phase 2:</b> This is the overlay phase where images are coordinated and aligned to correctly identify the type of lunar terrain responsible for 
+            Baily’s beads.
+        </li>
+        <li>
+            <b>Phase 3:</b> In this step we will identify the geographical location from where crater, responsible for the Baileys bead in question, is visible. 
+            <a href="http://xjubier.free.fr/en/site_pages/solar_eclipses/HSE_20230420_pg02_Baily_Beads_Simulation.html">This requires reverse engineering the method of prediction of solar eclipse path map</a>.
+        </li>
+        <li>
+            <b>Phase 4:</b> We will validate our results by using a <a href="http://xjubier.free.fr/en/site_pages/solar_eclipses/HSE_20230420_pg02_Baily_Beads_Simulation.html">simulator</a> to regenerate the solar eclipse path and determine the precise latitude and longitude 
+            coordinates where Bailey’s Beads were visible. These latitude and longitudes will be matched with our results obtained in Phase 3.
+        </li>
+   </ul>
+   
+<!--- Image Processing -->
+
+    <h2>Image Processing</h2>
+    <p>
+        Preliminary image exploration is done using MATLAB. In this process, we first read the lunar elevation data in binary format. We then defined image 
+        dimensions based on metadata from the accompanying LBL (Label) file, specifying 15360 rows and 46080 columns. Since the raw binary data is stored in row-major 
+        order, the matrix is transposed to match the correct spatial orientation of the lunar surface. Without transposition, the dataset would be flipped along its 
+        axes, leading to incorrect interpretations of the topographic features. The elevation values are then converted from Digital Numbers (DN) to absolute height in 
+        kilometers using linear transformation. The processed elevation matrix is visualized using MATLAB which scales and displays the elevation data as a grayscale 
+        image.
+    </p>
+    <figure>
+        <img src="/Users/abluna/Desktop/Computational Perception/Project/website/lunar elevation.png" width="50%" height="50%"> 
+        <figcaption>LOLA image: A visualization of Lunar elevation data</figcaption>
+    </figure>
+    <p>
+        Our initial investigation of eclipse photograph obtained from NASA Flickr account involve detection of moon edge at the time of total eclipse and obtaining 
+        its geometric points. These points are stored in eclipse geometry.npy. The photograph used for this purpose is from a speedway in Indiana. Our first step is 
+        to convert the image to gray scale and then apply gaussian blur. This will reduce the noise and make the edges of the desired object (Moon) more coherent. 
+        Now to detect circle in the modified image we use Hough Circles function of OpenCV.
+    </p>
+
+<!--- Quantitative Analysis of Light Intensity in an Eclipse Image -->
+    <h2>Quantitative Analysis of Light Intensity in an Eclipse Image</h2>
+    <p>
+        Before we can map the craters on to the Baily’s bead, it is important to first identify the Baily’s bead in a photograph. For this purpose, we analyzed 
+        the light intensity of the photograph using radial-azimuthal intensity map. It is a 2D map with the X-axis indicating how far an observer is from the center
+        of the moon and y-axis indicates which direction around the moon an observer is looking. If an observer move its head in the clockwise direction, the 
+        brightness scan is done outward from the center. It is essential a heatmap. It is created from the coor- dinates stored in eclipse geometry.npy from the 
+        previous moon detection in the photograph. Upon examination of the radial azimuthal map, the occurrence and position of Baily’s bead is clear. This map will
+        be different for each photograph but can serve as a Baily’s bead detection method in the pipeline[11].
+    </p>
+    <figure>
+        <img src="/Users/abluna/Desktop/Computational Perception/Project/website/Detected_lunar_disk_output.png" width="70%" height="50%">
+        <figcaption>Detecting lunar disk at the time of totality during the Total Solar Eclipse of 2024</figcaption>
+    </figure>
+    <p>
+        Further, we plotted limb brightness map. In this map, brightness is plotted as a function of the angle (azimuth) around the disk. Using this map we can count 
+        the number of beads, find the crater causing each beads, and also estimate the time of totality with frequent analysis of bead appearance and disappearance. 
+        Given the Eclipse photograph from speedway, Indiana during the time of totality 135 potential beads are detected. This is because during the time of totality 
+        Moon completely covers the Sun, leaving extreme bright light emerging from the disk of the Moon. This represents Sun’s corona.
+    </p>
+    <br>
+    <p>
+        For better visualization, we overlayed these prospective Baily’s beads on an eclipse image. Baily’s beads are known to appear as intensely bright spots along 
+        the lunar limb, often exceeding the brightness of the surrounding solar corona. Leveraging this characteristic, we extracted the top 10 points with the 
+        highest limb brightness values from our intensity profile and marked them on the image. These selected peaks were spatially clustered toward the lower-right
+        quadrant of the Moon’s disk, which strongly suggests the actual appearance of Baily’s beads in that region. The distinct concentration of these bright 
+        features, in conjunction with their solar prominence in the region, provides reliable evidence of the bead phenomenon in the given eclipse photograph. 
+        This approach demonstrates that by analyzing brightness peaks along the lunar limb and mapping them back onto the eclipse im- age, we can objectively 
+        verify the presence of Baily’s beads without relying solely on visual inspection.
+    </p>
+    <figure>
+        <img src="/Users/abluna/Desktop/Computational Perception/Project/website/radial_azimuthal_intensity_map.png" width="50%" height="50%">
+        <figcaption>radial-azimuthal intensity map of the provided photograph</figcaption>
+    </figure>
+    <div class="column">
+        <figure>
+            <img src="/Users/abluna/Desktop/Computational Perception/Project/website/unwrapped_limb_brightness.png" width="100%" height="100%">
+            <figcaption>Light intensity around Lunar Limb</figcaption>
+        </figure>
+        <figure>
+            <img src="/Users/abluna/Desktop/Computational Perception/Project/website/baileys_beads_detected_plot.png" width="100%" height="100%">
+            <figcaption>Potential Baily's bead detected</figcaption>
+        </figure>
+    </div>
+
+<!--- Plotting Lunar Limb -->
+
+    <h2>Plotting Narrow Lunar Limb</h2>
+    <p>
+        This step of the project require thoughtful consideration of angle on Earth from where we are looking at the Moon. For this purpose, we explored 
+        two analytical approaches. The results clearly indicated which one was more suitable for adop- tion. We refer to our first approach as the “Observer 
+        at +X direction” method, and the second as the "Earth-based Moon Position" method.
+    </p>
+    <figure>
+        <img src="/Users/abluna/Desktop/Computational Perception/Project/website/fig7.png" width="50%" height="auto">
+        <figcaption>10 highest intensity light areas detected around Moon's limb</figcaption>
+    </figure>
+    <br>
+    <b>Observer at +X Direction Method</b>
+    <p>
+        The image processing of a global lunar image provides a broad overview of craters and other topographical features. However, it does not effectively 
+        distinguish in- dividual craters, mountains, valleys, or their depths. Since Baily’s Beads are a direct result of the Moon’s limb topography, it is essential 
+        to extract and analyze its features at a microscopic level for precise characterization. Considering a SLDEM global lunar image, we can conclude that the image
+        spans +60° to -60° latitude and 0° to 360° longitude at a resolution of 128 pixels/degree. There are other global lunar images available that are mapped at 
+        +60° to -60° latitude. We might consider those images latter in the project for better accuracy. For adding the elevation data to the image we converted it 
+        to meters and added to the Moon’s reference radius (1737.4 km) to get the absolute radius at each grid point. We then created latitude and longitude grids and 
+        converted it to radians. Using the planeto centric model, the DEM data is converted into Cartesian coordinates (x, y, z) where <em>R</em> is the absolute radius, 
+        <em>lat</em> is the latitude, and <em>lon</em> is the longitude.
+    </p>
+    <figure>
+        <img src="/Users/abluna/Desktop/Computational Perception/Project/website/scrnsht.png" width="35%" height="auto%">
+    </figure>
+    <div class="column">
+        <figure>
+            <img src="/Users/abluna/Desktop/Computational Perception/Project/website/overlay_beads_on_image.png" width="100%" height="100%">
+            <figcaption>Plotting 135 beads on Lunar Limb</figcaption>
+        </figure>
+        <figure>
+            <img src="/Users/abluna/Desktop/Computational Perception/Project/website/top_10_baileys_beads_matched_overlay.png" width="100%" height="100%">
+            <figcaption>Plotting top 10 beads on Lunar Limb</figcaption>
+        </figure>
+    </div>
+    <br>
+    <p>
+        To extract limb points of the Moon, we have to set an arbitrary viewpoint. We assume that the observer is positioned along the +X direction, represented 
+        by the observer vector (1.0, 0.0, 0.0). The algorithm begins by computing unit vectors for all surface points relative to the Moon’s center, effectively 
+        normalizing their positions in planetocentric coordinates. These unit vectors represent the direction of each surface point in 3D space. To determine whether
+        a point lies on the limb, the algorithm calculates the dot product between the unit vector of the Moon’s surface and the observer’s unit vector.
+    </p>
+    <br>
+    <p>
+        A point qualifies as a limb point if its angular separation falls within the range of 88° to 92°, ensuring that it is approximately perpendicular to the 
+        observer’s line of sight along the X-axis. The choice of this range accounts for small variations in surface elevation, preventing the exclusion of valid 
+        limb points due to minor topographic fluctuations. Once the valid limb points are identified, they are stored in the global array called <em>LIMB POINTS</em>, which 
+        contains their corresponding (x, y, z) Cartesian coordinates. Simultaneously it generates a numpy file (limbpoints.npy) to store the coordinates. This 
+        dataset can be used for visualization and further analysis. The narrow lunar limb is mapped by identifying and ex- tracting limb points from the dataset. 
+        A total of approximately 19.8 million limb points are recognized, representing the fine-scale topographical variations along the Moon’s limb. However, 
+        plotting all 19.8 million points at once is impractical due to computational constraints and visualization clarity. To address this, we apply a down sampling 
+        technique, selectively skipping a subset of points to reduce data density while preserving the essential structure of the limb. The down sampled limb points 
+        are then projected into a 3D plot, allowing for a clearer and more interpretable visualization of the lunar limb’s curvature and topographical features. 
+        This approach ensures efficient rendering while maintaining the integrity of the observed limb structure. A 3D image displaying actual spatial distribution of 
+        limb points around the Moon is represented in the below figure.
+    </p>
+    <figure>
+        <img src="/Users/abluna/Desktop/Computational Perception/Project/website/limb_points.png" width="50%" height="auto">
+        <figcaption>3D limb points of the Moon</figcaption>
+    </figure>
+    <br>
+    <p>
+        The file <em>limb_points.py</em> is used to generate X angular offset and Y angular offset. Upon converting these offsets to degrees we obtain the Moon’s limb as seen from Earth 
+        in angular space(observer at X direction). These values are then projected on a graph. Before moving forward with this approach, we realized we can improve on 
+        accuracy and efficiency by using the second method.
+    </p>
+    <figure>
+        <img src="/Users/abluna/Desktop/Computational Perception/Project/website/projected_limb_angles.png" width="50%" height="auto">
+        <figcaption>Limb points after angular offset (observer at X-axis)</figcaption>
+    </figure>
+    <b>Earth-based Moon Position</b>
+    <p>
+        Our second method to calculate the Moon’s limb from the observer's location include advanced package like skyfield along with latitude/longitude of the place where 
+        photograph is taken. In this method we are not making any assumption regarding the location of the observer. For lunar limb estimation we extracted real 
+        astronomy ephemeris data from the Skyfield package and real lunar topography from SLDEM2015. Skyfield provide us with Earth-Moon vector to simulate how moon 
+        appears from a given location on Earth (in this case, Speedway, Indiana).
+    </p>
+    <br>
+    <p>
+        Once the lunar limb is plotted successfully, we load the crater data from <a href="https://zenodo.org/" target="_blank">Zenodo</a>, a universal, open source, research data repository managed by CERN and 
+        OpenAIRE. Specific craters belonging to the Lunar limb are extracted from this data. The three-dimensional morphological information of craters along the lunar 
+        limb plays a pivotal role in this project, as it enables us to determine which specific crater(visible from the observer’s location) is responsible for 
+        producing the observed Baily’s bead. We begin by filtering the crater database to remove small or shallow craters that are unlikely to contribute meaningfully 
+        to the limb profile at the observed resolution. The remaining crater coordinates, originally defined in latitude and longitude, are then transformed into 3D unit
+        vectors on a spheri- cal model of the Moon. This transformation allows us to represent each crater as a point on the unit sphere, which is geometrically 
+        consistent with the way limb points are derived from the observer’s perspective.
+    </p>
+    <figure>
+        <img src="/Users/abluna/Desktop/Computational Perception/Project/website/limb_points_to_craters_3D.png" width="50%" height="auto">
+        <figcaption>Nearest crater search from limb points</figcaption>
+    </figure>
+    <p>
+        For spatial querying, we construct a KDTree using the 3D crater vectors. This data structure supports efficient nearest-neighbor searches and significantly 
+        reduces the computational overhead involved in matching features. Each limb point obtained from the lunar limb detection process is then used as a query to 
+        identify its closest corresponding crater. This association between limb points and known craters forms the basis for tracing Baily’s beads back to their 
+        topographic origin, ultimately linking observed photometric features in eclipse imagery to specific geological formations on the Moon.
+    </p>
+    <br>
+    <p>
+        From the crater database, small craters are filtered out and lat/lon of these craters are converted to 3D unit vectors on a sphere, which allows for efficient
+        geometric distance comparisons. We create a KDTree for fast nearest-neighbor search for our craters. We then use limb points from lunar limb detection process
+        to query nearest crater to each limb point.
+    </p>
+    <figure>
+        <img src="/Users/abluna/Desktop/Computational Perception/Project/website/Skyfiled coordinates.jpg" width="50%" height="auto">
+        <figcaption>Earth-Moon vector</figcaption>
+    </figure>
+    <p>
+        3D surface geometry is obtained from SLDEM2015 and moon’s angular diameter is calculated. Based on view angle and Moon’s angular radius we compute which
+        points lie along the limb. Limb points and Limb lat/long are stored in numpy array. In next step, we combine the stored limb points from the skyfield and
+        the eclipse image geometry to overlay the selected limb points that appear on then limb from the observer’s view. These pixel coordinates of the limb are
+        then stored in another numpy array.
+    </p>
+    <figure>
+        <img src="/Users/abluna/Desktop/Computational Perception/Project/website/Screenshot 2025-05-03 105224.png" width="30%" height="auto">
+        <figcaption>Flowchart to extract limb points and limb lat/long from observer's lcoation on Earth</figcaption>
+    </figure>
+</html>
