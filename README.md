@@ -11,8 +11,7 @@ In order to run this project you need to understand its structure.
   * Detecting beads - has code to map intensity of light in a picture and then using this intensity of light detect beads. Bailey's bead is plotted taking top 10 brightest beads.
   * Crater overlay - an attempt to overlay the crater data obtained from a repository on our Total Eclipse photograph. This folder is a work in progress and is not complete yet with all accuracy.
   * website -has code to our website for this project.
-### To run this project it is required that you install certain python packages including OpenCv, skyfield, numpy, matplotlib, pillow e.t.c. Files are large so either choose a high power PC or
-it will run for a very long time.
+### To run this project it is required that you install certain python packages including OpenCv, skyfield, numpy, matplotlib, pillow e.t.c. Files are large so either choose a high power PC or it will run for a very long time.
 ## Description
 The project is an attempt to localize an observer based on lunar topography. Our [website](https://alyssabethl.github.io/eclipse-nav/index.html) explains the goal and purpose of this project clearly. 
 It started as a curiosity to explore an eclipse photograph that captured Baily's Beads. It quickly evolved into a project capable of locating a person using a eclipse photograph.
