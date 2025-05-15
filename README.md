@@ -1,8 +1,8 @@
 ## Ready to navigate outside the world
 ### Thank you for landing on our evolving project page.
 You are here because you wanted to explore the Moon. The Moon - every astro-explorer's favorite. To get you excited chcek out our [website](https://alyssabethl.github.io/eclipse-nav/index.html)  
-Let me show you a different side of Monn through this project. But first you have to run the project.
-In order to run this project you need to understand its structure. 
+Let me show you a different side of Moon through this project. But first you have to run the project.
+In order to run this project you need to understand project structure. 
 ### The project consist of seven folders.
   * Initial input - consist of files and path to download files that are required to start the project.
   * Lunar disk - has code to detect the lunar disk during the time of total eclipse
